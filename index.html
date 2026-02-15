@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Shreya 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffdde1,#ee9ca7);
+background-size:400% 400%;
+animation:gradientBG 12s ease infinite;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+text-align:center;
+overflow:hidden;
+}
+
+@keyframes gradientBG{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.page{
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+width:100%;
+padding:25px;
+animation:fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+.active{display:flex;}
+
+h1{
+font-family:'Great Vibes',cursive;
+font-size:50px;
+color:white;
+margin-bottom:20px;
+text-shadow:2px 2px 12px rgba(0,0,0,0.3);
+}
+
+.normalHeading{
+font-family:'Poppins',sans-serif !important;
+font-size:32px;
+}
+
+input{
+padding:12px;
+border-radius:25px;
+border:none;
+outline:none;
+margin:10px;
+text-align:center;
+}
+
+button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:#ff4e91;
+color:white;
+font-size:16px;
+cursor:pointer;
+margin:10px;
+transition:0.3s;
+}
+
+button:hover{transform:scale(1.1);}
+
+.hidden{display:none;}
+
+#typeText{
+max-width:95%;
+font-size:17px;
+color:white;
+line-height:1.8;
+white-space:pre-line;
+min-height:120px;
+}
+
+.timer{
+color:white;
+font-size:20px;
+margin-top:15px;
+font-weight:500;
+}
+
+/* GALLERY */
+.gallery{
+display:flex;
+gap:15px;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+width:100%;
+padding:10px;
+}
+
+.gallery img{
+height:260px;
+border-radius:20px;
+scroll-snap-align:center;
+cursor:pointer;
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+
+.fullscreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.fullscreen img{
+max-width:90%;
+max-height:90%;
+border-radius:20px;
+}
+
+.hearts{
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+}
+
+.heart{
+position:absolute;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+.taskBox{
+font-size:18px;
+color:white;
+max-width:90%;
+margin-bottom:20px;
+}
+</style>
+</head>
+<body>
+
+<div class="hearts"></div>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+<h1>Enter Your Name 💕</h1>
+<input type="text" id="nameInput" placeholder="Your Name">
+<button onclick="checkName()">Enter</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+<h1>Created specially for you by AMUL 💞</h1>
+<button onclick="nextPage(3)">Continue</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+<h1>Do you love me? 😚</h1>
+<button onclick="nextPage(4)">YES</button>
+<button onclick="moveButton(this)">NO</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+<h1>Will you be my Valentine baby? 💘</h1>
+<button onclick="nextPage(5)">YES</button>
+<button onclick="moveButton(this)">NO</button>
+</div>
+
+<!-- MESSAGE PAGE -->
+<div class="page" id="page5">
+<h1>My Dearest Shreya❤️</h1>
+<div id="typeText"></div>
+<button id="msgNext" class="hidden" onclick="nextPage(6)">Next 💌</button>
+</div>
+
+<!-- TIMER PAGE -->
+<div class="page" id="page6">
+<h1 class="normalHeading">We've been together since...</h1>
+<div class="timer" id="loveTimer"></div>
+<button onclick="nextPage(7)">Next 💖</button>
+</div>
+
+<!-- NEW GALLERY PAGE -->
+<div class="page" id="page7">
+<h1>Our Memories 📸</h1>
+
+<div class="gallery">
+<img src="images/1.jpg" onclick="openImage(this)">
+<img src="images/2.jpg" onclick="openImage(this)">
+<img src="images/3.jpg" onclick="openImage(this)">
+<img src="/images/4.jpg" onclick="openImage(this)">
+<img src="images/5.jpg" onclick="openImage(this)">
+</div>
+
+<button onclick="nextPage(8)">Next 💕</button>
+</div>
+
+<!-- TASK PAGE -->
+<div class="page" id="page8">
+<h1 class="normalHeading">FOLLOW WHATS WRITTEN AND TAP THE 'NEXT' BUTTON 💗</h1>
+<div class="taskBox" id="taskText"></div>
+<button onclick="nextTask()">Next</button>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="page" id="page9">
+<h1>HOPE YOU LIKED IT 💖</h1>
+<p style="color:white;font-size:20px;">
+I FUCKINGGG LOVEEEE YOU SHREYAA MERI JAAN MERI CUTIEEEEE 😘❤️🔥💞💗💘
+</p>
+</div>
+
+<!-- FULLSCREEN IMAGE -->
+<div class="fullscreen" id="fullscreen" onclick="closeImage()">
+<img id="fullImg">
+</div>
+
+<script>
+
+/* Navigation */
+function nextPage(page){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById("page"+page).classList.add("active");
+if(page===5){ startTyping(); }
+}
+
+/* Name check */
+function checkName(){
+let name=document.getElementById("nameInput").value.trim().toLowerCase();
+if(name==="shreya"){
+nextPage(2);
+}else{
+alert("Only for Shreya ❤️");
+}
+}
+
+function moveButton(btn){
+btn.style.position="absolute";
+btn.style.top=Math.random()*80+"%";
+btn.style.left=Math.random()*80+"%";
+}
+
+/* Typing Message */
+let message=`Ik i am dumb, chomu, your cutu, your kucchu pucchu. This website is same as before just the page you are on is added just to say whatever happened my love yesterday and on 14th was not my actual intentions, ik you have forgave me but not forgot it and thats ok. This message is just for you to know how much i love youuu and how important you are to me, your all points are heard and noted and will be followed without letting you feel ki bola hai isiliye ho rha hai.
+
+I loveeeeeeee youuuuuu mi amorrrr💗💗💗💋`;
+
+let i=0;
+function startTyping(){
+document.getElementById("typeText").innerHTML="";
+document.getElementById("msgNext").classList.add("hidden");
+i=0;
+typeEffect();
+}
+
+function typeEffect(){
+if(i<message.length){
+document.getElementById("typeText").innerHTML+=message.charAt(i);
+i++;
+setTimeout(typeEffect,30);
+}else{
+document.getElementById("msgNext").classList.remove("hidden");
+}
+}
+
+/* Timer from 4 Jan 2023 */
+function updateTimer(){
+let startDate=new Date("January 4, 2023 00:00:00").getTime();
+let now=new Date().getTime();
+let diff=now-startDate;
+
+let days=Math.floor(diff/(1000*60*60*24));
+let hours=Math.floor((diff/(1000*60*60))%24);
+let minutes=Math.floor((diff/(1000*60))%60);
+let seconds=Math.floor((diff/1000)%60);
+
+document.getElementById("loveTimer").innerHTML=
+days+" Days 💖 "+hours+" Hours 💕 "+minutes+" Minutes 💓 "+seconds+" Seconds 💗";
+}
+setInterval(updateTimer,1000);
+updateTimer();
+
+/* Gallery */
+function openImage(img){
+document.getElementById("fullscreen").style.display="flex";
+document.getElementById("fullImg").src=img.src;
+}
+function closeImage(){
+document.getElementById("fullscreen").style.display="none";
+}
+
+/* Tasks */
+let tasks=[
+"1. Take my bag carefully to your room 💼",
+"2. Open the middle zip the one where i kept trophy 🏆",
+"3. Now now baby i hope u liked it 😚",
+"4. Now open the id card waala chain 💳",
+"5. Thats for you for being my cutieeeeeee and hottieeeeee 😍🔥",
+"6. Now come to hall and do whatever you want to do with me for 10 seconds 😉",
+"7. Now close your eyes ❤️"
+];
+
+let taskIndex=0;
+function nextTask(){
+if(taskIndex<tasks.length){
+document.getElementById("taskText").innerHTML=tasks[taskIndex];
+taskIndex++;
+}else{
+nextPage(9);
+}
+}
+
+/* Floating Hearts */
+function createHeart(){
+let heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+document.querySelector(".hearts").appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,500);
+
+</script>
+</body>
+</html>
